@@ -2,6 +2,7 @@ package main.java.be.vub.cashflow.game;
 
 import main.java.be.vub.cashflow.accounting.Asset;
 import main.java.be.vub.cashflow.accounting.Liability;
+
 import java.util.List;
 
 public class Player {
@@ -30,6 +31,10 @@ public class Player {
         this.currentTile = currentTile;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public Tile getCurrentTile() {
         return currentTile;
     }
@@ -43,7 +48,7 @@ public class Player {
     }
 
     public void setIncome(double income) {
-        this.income = income;
+        this.income += income;
     }
 
     public double getExpens() {
@@ -51,7 +56,7 @@ public class Player {
     }
 
     public void setExpens(double expens) {
-        this.expens = expens;
+        this.expens += expens;
     }
 
     public List<Asset> getAssets() {
@@ -68,5 +73,17 @@ public class Player {
 
     public void setLiabilities(List<Liability> liabilities) {
         this.liabilities = liabilities;
+    }
+
+    public double calculateCashFlow() {
+        double totalCashFlow = 0;
+        for (Asset asset : assets) {
+            totalCashFlow += asset.getCashFlow();
+        }
+        return totalCashFlow;
+    }
+
+    public double getCash() {
+        return this.getIncome() - this.getExpens();
     }
 }

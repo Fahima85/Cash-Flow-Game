@@ -6,6 +6,24 @@ public class Asset {
     private double value;
     private double income;
     private double price;
-    private String string;
+    private double cashflow;
+
+    public Asset(String name, double price, double cashflow) {
+        this.name = name;
+        this.price = price;
+        this.cashflow = cashflow;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public double getCost() {
+        return this.price;
+    }
+
+    public double getCashFlow() {
+        return this.cashflow;
+    }
 
 }

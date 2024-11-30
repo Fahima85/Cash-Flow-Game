@@ -1,6 +1,6 @@
 package main.java.be.vub.cashflow.game;
 
-public class Tile {
+public  class Tile {
     String name;
     TileType tileType;
     double value;
