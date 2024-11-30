@@ -12,4 +12,12 @@ public class Tile {
         this.value = value;
         this.description = description;
     }
+
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
+    }
 }
