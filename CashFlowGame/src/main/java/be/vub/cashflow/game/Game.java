@@ -2,6 +2,12 @@ package main.java.be.vub.cashflow.game;
 
 import java.util.List;
 
+//TODO; Check to meet all of the requirements from Prof. Slides.
+//TODO; Adding Object Oriented Features
+//TODO; Adding Features from Like (Generics,Collection,lambda) etc.
+//TODO; When a User Move from One Tile(Location) to Another we Have to Show Specific Message A----->B
+//TODO; Grab something
+
 public class Game {
     private List<Player> players;    // List of players in the game
     private Player currentPlayer;
@@ -66,13 +72,18 @@ public class Game {
         // TODO; We have to do conditional check to determine if the tile is income or expense type
         // TODO; Depend on the situation we have to update asset or liabilities
         // TODO;
-        currentPlayer.setIncome(currentTile.value);
+        currentPlayer.setIncome(currentTile.getValue());
     }
 
     public void buyAsset() {
         //TODO; We have to withdraw cash from player balance and deposit to the owner player balance;
         //TODO; Transaction
         //TODO; If an asset is occupied by one player , it can't buy several times;
+        //TODO; Before buying any tile we have to call hasOwner method from Tile class
+    }
+
+    public void liability() {
+        //TODO; We have to Update Liability for Player
     }
 
     public Game(List<Player> players) {

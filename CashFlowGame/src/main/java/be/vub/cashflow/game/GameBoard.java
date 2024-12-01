@@ -1,5 +1,6 @@
 package main.java.be.vub.cashflow.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
@@ -8,6 +9,9 @@ public class GameBoard {
     Player owner;
     boolean finished = false;
 
+    public GameBoard() {
+        this.tileList = new ArrayList<>();
+    }
 
     public void fillTileList() {
         tileList.add(new Tile("Start", TileType.INVESTMENT, 1000, "Start your financial journey here"));
@@ -19,7 +23,6 @@ public class GameBoard {
     }
 
     /**
-     *
      * @param move
      * @return Tile
      */
@@ -35,7 +38,6 @@ public class GameBoard {
     }
 
     /**
-     *
      * @param currentTile
      */
     public void setCurrentTile(Tile currentTile) {
