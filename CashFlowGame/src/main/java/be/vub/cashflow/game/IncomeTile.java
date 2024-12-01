@@ -4,6 +4,13 @@ public class IncomeTile extends Tile {
 
     private double incomeAmount;
 
+    /**
+     * @param name
+     * @param tileType
+     * @param value
+     * @param description
+     * @param incomeAmount
+     */
     public IncomeTile(String name, TileType tileType, double value, String description, double incomeAmount) {
         super(name, tileType, value, description);
         this.incomeAmount = incomeAmount;

@@ -7,11 +7,19 @@ public class Game {
     private Player currentPlayer;
     private GameBoard gameBoard;
 
+    /**
+     *
+     * @param gameBoard
+     * @param players
+     */
     public Game(GameBoard gameBoard, List<Player> players) {
         this.gameBoard = gameBoard;
         this.players = players;
     }
 
+    /**
+     *
+     */
     public void startGame() {
         System.out.println("Starting game");
         gameBoard.fillTileList();
@@ -21,6 +29,10 @@ public class Game {
         this.endGame();
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean isGameOver() {
         for (Player player : players) {
             if (player.getCash() <= 0) {

@@ -14,11 +14,26 @@ public class Player {
     List<Liability> liabilities;
     Tile currentTile;
 
+    /**
+     *
+     * @param palyerId
+     * @param name
+     */
     public Player(int palyerId, String name) {
         this.palyerId = palyerId;
         this.name = name;
     }
 
+    /**
+     *
+     * @param palyerId
+     * @param name
+     * @param income
+     * @param expens
+     * @param assets
+     * @param liabilities
+     * @param currentTile
+     */
     public Player(int palyerId, String name, double income, double expens,
                   List<Asset> assets, List<Liability> liabilities,
                   Tile currentTile) {
@@ -31,10 +46,18 @@ public class Player {
         this.currentTile = currentTile;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     *
+     * @return Tile
+     */
     public Tile getCurrentTile() {
         return currentTile;
     }

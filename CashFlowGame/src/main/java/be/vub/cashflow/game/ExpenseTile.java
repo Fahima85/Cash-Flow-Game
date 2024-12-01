@@ -4,6 +4,13 @@ public class ExpenseTile extends Tile {
 
     private double expenseAmount;
 
+    /**
+     * @param name
+     * @param tileType
+     * @param value
+     * @param description
+     * @param expenseAmount
+     */
     public ExpenseTile(String name, TileType tileType, double value, String description, double expenseAmount) {
         super(name, tileType, value, description);
         this.expenseAmount = expenseAmount;
