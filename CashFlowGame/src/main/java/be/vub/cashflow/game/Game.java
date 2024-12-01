@@ -3,7 +3,7 @@ package main.java.be.vub.cashflow.game;
 import java.util.List;
 
 //TODO; Check to meet all of the requirements from Prof. Slides.
-//TODO; Adding Object Oriented Features
+//TODO; Adding Object Oriented Features (Abstract,Interface,Inheritance,PolyMorphism,Dependency Injection)
 //TODO; Adding Features from Like (Generics,Collection,lambda) etc.
 //TODO; When a User Move from One Tile(Location) to Another we Have to Show Specific Message A----->B
 //TODO; Grab something
