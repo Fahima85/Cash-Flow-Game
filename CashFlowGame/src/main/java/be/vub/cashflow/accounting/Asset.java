@@ -8,12 +8,22 @@ public class Asset {
     private double price;
     private double cashflow;
 
+    /**
+     *
+     * @param name
+     * @param price
+     * @param cashflow
+     */
     public Asset(String name, double price, double cashflow) {
         this.name = name;
         this.price = price;
         this.cashflow = cashflow;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }

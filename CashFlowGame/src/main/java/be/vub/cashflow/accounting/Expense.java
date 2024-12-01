@@ -6,6 +6,13 @@ public class Expense {
     private String description;
     private String dueDate;
 
+    /**
+     *
+     * @param expenseType
+     * @param amount
+     * @param description
+     * @param dueDate
+     */
     public Expense(ExpenseType expenseType, double amount, String description, String dueDate) {
         this.expenseType = expenseType;
         this.amount = amount;
