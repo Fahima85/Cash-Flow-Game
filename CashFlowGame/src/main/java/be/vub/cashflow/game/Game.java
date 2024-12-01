@@ -8,7 +8,6 @@ public class Game {
     private GameBoard gameBoard;
 
     /**
-     *
      * @param gameBoard
      * @param players
      */
@@ -23,6 +22,7 @@ public class Game {
     public void startGame() {
         System.out.println("Starting game");
         gameBoard.fillTileList();
+        this.moveOnTiles(6);
         while (!this.isGameOver()) {
             this.nextTurn();
         }
@@ -30,8 +30,7 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * @return boolean
      */
     private boolean isGameOver() {
         for (Player player : players) {
@@ -58,12 +57,22 @@ public class Game {
         for (Player player : players) {
             System.out.println(player.getName() + " Final cash: " + player.getCash());
         }
+        // TODO; We have to determine which player is winner;
     }
 
     public void moveOnTiles(int tas) {
         Tile currentTile = this.gameBoard.calculateCurrentTile(tas);
         currentPlayer.setCurrentTile(currentTile);
+        // TODO; We have to do conditional check to determine if the tile is income or expense type
+        // TODO; Depend on the situation we have to update asset or liabilities
+        // TODO;
         currentPlayer.setIncome(currentTile.value);
+    }
+
+    public void buyAsset() {
+        //TODO; We have to withdraw cash from player balance and deposit to the owner player balance;
+        //TODO; Transaction
+        //TODO; If an asset is occupied by one player , it can't buy several times;
     }
 
     public Game(List<Player> players) {
