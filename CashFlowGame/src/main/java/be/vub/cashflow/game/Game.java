@@ -1,6 +1,7 @@
 package main.java.be.vub.cashflow.game;
 
 import java.util.List;
+import java.util.Scanner;
 
 //TODO; Check to meet all of the requirements from Prof. Slides.
 //TODO; Adding Object Oriented Features (Abstract,Interface,Inheritance,PolyMorphism,Dependency Injection)
@@ -28,11 +29,70 @@ public class Game {
     public void startGame() {
         System.out.println("Starting game");
         gameBoard.fillTileList();
-        this.moveOnTiles(6);
-        while (!this.isGameOver()) {
-            this.nextTurn();
+
+        System.out.println("Welcome to the game! Type 'help' for commands.");
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+//            if (this.isGameOver()) {
+//                this.endGame();
+//            }
+            String command = scanner.nextLine().trim();
+            System.out.println("Players:");
+            for (int i = 0; i < players.size(); i++) {
+                System.out.println(i + 1 + ". " + players.get(i).getName());
+            }
+            System.out.print("Select a player (enter number): ");
+            String input = scanner.nextLine().trim();
+            int playerIndex = Integer.parseInt(input) - 1;
+
+            if (playerIndex < 0 || playerIndex >= players.size()) {
+                System.out.println("Invalid player selection.");
+                continue;
+            }
+
+            Player currentPlayer = players.get(playerIndex);
+
+            System.out.print(currentPlayer.getName() + " > ");
+            String[] parts = command.split(" ", 2);
+            String action = parts[0].toLowerCase();
+            String argument = parts.length > 1 ? parts[1] : null;
+
+            switch (action) {
+                case "go":
+                    if (argument != null) {
+                        currentPlayer.move(argument);
+                    } else {
+                        System.out.println("Go where?");
+                    }
+                    break;
+                case "look":
+                    currentPlayer.look();
+                    break;
+                case "take":
+                    if (argument != null) currentPlayer.take(argument);
+                    else System.out.println("Take what?");
+                    break;
+                case "drop":
+                    if (argument != null) currentPlayer.drop(argument);
+                    else System.out.println("Drop what?");
+                    break;
+                case "inventory":
+                    currentPlayer.inventory();
+                    break;
+                case "help":
+                    this.help();
+                    break;
+                default:
+                    System.out.println("Unknown command. Type 'help' for a list of commands.");
+            }
         }
-        this.endGame();
+
+//        this.moveOnTiles(6);
+//        while (!this.isGameOver()) {
+//            this.nextTurn();
+//        }
+
     }
 
     /**
@@ -45,17 +105,6 @@ public class Game {
             }
         }
         return false;
-    }
-
-    public void nextTurn() {
-        Player currentPlayer = this.currentPlayer;
-        System.out.println("Turn For: " + currentPlayer.name);
-        Tile tile = currentPlayer.getCurrentTile();
-        System.out.println("Player landed on tile at position " + currentPlayer.getCurrentTile());
-//        tile.applyEffect(currentPlayer);
-//        System.out.println("Cash after effect: " + currentPlayer.getCash());
-//        System.out.println("Cash Flow: " + currentPlayer.calculateCashFlow());
-
     }
 
     public void endGame() {
@@ -88,6 +137,17 @@ public class Game {
 
     public Game(List<Player> players) {
         this.players = players;
+    }
+
+
+    public void help() {
+        System.out.println("Available commands:");
+        System.out.println("- go [north/east/south/west]");
+        System.out.println("- look");
+        System.out.println("- inventory");
+        System.out.println("- take [item_name]");
+        System.out.println("- drop [item_name]");
+        System.out.println("- help");
     }
 
 }

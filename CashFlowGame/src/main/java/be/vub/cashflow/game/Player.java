@@ -1,8 +1,10 @@
 package main.java.be.vub.cashflow.game;
 
 import main.java.be.vub.cashflow.accounting.Asset;
+import main.java.be.vub.cashflow.accounting.Item;
 import main.java.be.vub.cashflow.accounting.Liability;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,44 +12,20 @@ public class Player {
     String name;
     double income;
     double expens;
-    List<Asset> assets;
-    List<Liability> liabilities;
     Tile currentTile;
+    private List<Item> inventory;
 
     /**
-     *
      * @param palyerId
      * @param name
      */
     public Player(int palyerId, String name) {
         this.palyerId = palyerId;
         this.name = name;
+        this.inventory = new ArrayList<>();
     }
 
     /**
-     *
-     * @param palyerId
-     * @param name
-     * @param income
-     * @param expens
-     * @param assets
-     * @param liabilities
-     * @param currentTile
-     */
-    public Player(int palyerId, String name, double income, double expens,
-                  List<Asset> assets, List<Liability> liabilities,
-                  Tile currentTile) {
-        this.palyerId = palyerId;
-        this.name = name;
-        this.income = income;
-        this.expens = expens;
-        this.assets = assets;
-        this.liabilities = liabilities;
-        this.currentTile = currentTile;
-    }
-
-    /**
-     *
      * @return
      */
     public String getName() {
@@ -55,7 +33,6 @@ public class Player {
     }
 
     /**
-     *
      * @return Tile
      */
     public Tile getCurrentTile() {
@@ -82,28 +59,58 @@ public class Player {
         this.expens += expens;
     }
 
-    public List<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(List<Asset> assets) {
-        this.assets = assets;
-    }
-
-    public List<Liability> getLiabilities() {
-        return liabilities;
-    }
-
-    public void setLiabilities(List<Liability> liabilities) {
-        this.liabilities = liabilities;
-    }
-
-    public double calculateCashFlow() {
-        double totalCashFlow = 0;
-        for (Asset asset : assets) {
-            totalCashFlow += asset.getCashFlow();
+    public void move(String direction) {
+        Tile nextTile = currentTile.getNeighbor(direction);
+        if (nextTile != null) {
+            currentTile = nextTile;
+            System.out.println(name + " moved to " + currentTile.getName() + ".");
+            currentTile.interact(this);
+        } else {
+            System.out.println(name + " can't go that way!");
         }
-        return totalCashFlow;
+    }
+
+    public void look() {
+        System.out.println(name + " is at " + currentTile.getName() + ": " + currentTile.getDescription());
+        if (currentTile.getItem() != null) {
+            System.out.println("You see a " + currentTile.getItem().getName() + " here.");
+        }
+    }
+
+    public void take(String itemName) {
+        Item item = currentTile.getItem();
+        if (item != null && item.getName().equalsIgnoreCase(itemName)) {
+            inventory.add(item);
+            currentTile.removeItem();
+            System.out.println("You took the " + itemName + ".");
+        } else {
+            System.out.println("There is no " + itemName + " here.");
+        }
+    }
+
+    public void drop(String itemName) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                inventory.remove(i);
+                currentTile.setItem(item);
+                System.out.println("You dropped the " + itemName + ".");
+                return;
+            }
+        }
+        System.out.println("You don't have a " + itemName + ".");
+    }
+
+
+    public void inventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+        } else {
+            System.out.println("Your inventory contains:");
+            for (Item item : inventory) {
+                System.out.println("- " + item.getName());
+            }
+        }
     }
 
     public double getCash() {

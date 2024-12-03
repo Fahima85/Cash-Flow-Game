@@ -6,11 +6,10 @@ import java.util.Scanner;
 
 public class Start {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter Numbers Of Players: ");
-//        String name = scanner.nextLine();  // Reads a full line
-//        Player player2 = new Player(124, "");   // Another player
 
         GameBoard gameBoard = new GameBoard();
         List<Player> players = new ArrayList<>();
