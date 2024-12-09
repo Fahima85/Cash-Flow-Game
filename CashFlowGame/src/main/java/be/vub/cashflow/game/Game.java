@@ -34,9 +34,6 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-//            if (this.isGameOver()) {
-//                this.endGame();
-//            }
             String command = scanner.nextLine().trim();
             System.out.println("Players:");
             for (int i = 0; i < players.size(); i++) {
@@ -57,6 +54,10 @@ public class Game {
             String[] parts = command.split(" ", 2);
             String action = parts[0].toLowerCase();
             String argument = parts.length > 1 ? parts[1] : null;
+
+            if (!currentPlayer.hasCurrentTile()) {
+                currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
+            }
 
             switch (action) {
                 case "go":
@@ -87,12 +88,6 @@ public class Game {
                     System.out.println("Unknown command. Type 'help' for a list of commands.");
             }
         }
-
-//        this.moveOnTiles(6);
-//        while (!this.isGameOver()) {
-//            this.nextTurn();
-//        }
-
     }
 
     /**

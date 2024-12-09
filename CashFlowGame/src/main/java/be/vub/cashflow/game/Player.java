@@ -39,6 +39,10 @@ public class Player {
         return currentTile;
     }
 
+    public boolean hasCurrentTile() {
+        return this.currentTile != null;
+    }
+
     public void setCurrentTile(Tile currentTile) {
         this.currentTile = currentTile;
     }
@@ -60,28 +64,28 @@ public class Player {
     }
 
     public void move(String direction) {
-        Tile nextTile = currentTile.getNeighbor(direction);
+        Tile nextTile = this.currentTile.getNeighbor(direction);
         if (nextTile != null) {
-            currentTile = nextTile;
-            System.out.println(name + " moved to " + currentTile.getName() + ".");
-            currentTile.interact(this);
+            this.currentTile = nextTile;
+            System.out.println(name + " moved to " + this.currentTile.getName() + ".");
+            //this.currentTile.interact(this);
         } else {
             System.out.println(name + " can't go that way!");
         }
     }
 
     public void look() {
-        System.out.println(name + " is at " + currentTile.getName() + ": " + currentTile.getDescription());
-        if (currentTile.getItem() != null) {
-            System.out.println("You see a " + currentTile.getItem().getName() + " here.");
+        System.out.println(name + " is at " + this.currentTile.getName() + ": " + this.currentTile.getDescription());
+        if (this.currentTile.getItem() != null) {
+            System.out.println("You see a " + this.currentTile.getItem().getName() + " here.");
         }
     }
 
     public void take(String itemName) {
-        Item item = currentTile.getItem();
+        Item item = this.currentTile.getItem();
         if (item != null && item.getName().equalsIgnoreCase(itemName)) {
             inventory.add(item);
-            currentTile.removeItem();
+            this.currentTile.removeItem();
             System.out.println("You took the " + itemName + ".");
         } else {
             System.out.println("There is no " + itemName + " here.");
@@ -93,7 +97,7 @@ public class Player {
             Item item = inventory.get(i);
             if (item.getName().equalsIgnoreCase(itemName)) {
                 inventory.remove(i);
-                currentTile.setItem(item);
+                this.currentTile.setItem(item);
                 System.out.println("You dropped the " + itemName + ".");
                 return;
             }
