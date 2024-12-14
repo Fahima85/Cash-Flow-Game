@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    int palyerId;
-    String name;
-    double income;
-    double expens;
-    Tile currentTile;
+    private static int counter = 0;
+    private int palyerId;
+    private String name;
+    private double income;
+    private double expens;
+    private Tile currentTile;
     private List<Item> inventory;
 
     /**
-     * @param palyerId
      * @param name
      */
-    public Player(int palyerId, String name) {
-        this.palyerId = palyerId;
+    public Player(String name) {
+        this.palyerId = ++counter;
         this.name = name;
         this.inventory = new ArrayList<>();
     }

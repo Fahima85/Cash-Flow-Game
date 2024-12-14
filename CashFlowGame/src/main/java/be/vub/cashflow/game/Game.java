@@ -23,13 +23,17 @@ public class Game {
         this.players = players;
     }
 
+    public Game(List<Player> players) {
+        this.players = players;
+    }
+
     /**
      *
      */
     public void startGame() {
         System.out.println("Starting game");
-        gameBoard.fillTileList();
 
+        //???
         System.out.println("Welcome to the game! Type 'help' for commands.");
         Scanner scanner = new Scanner(System.in);
 
@@ -37,7 +41,7 @@ public class Game {
             String command = scanner.nextLine().trim();
             System.out.println("Players:");
             for (int i = 0; i < players.size(); i++) {
-                System.out.println(i + 1 + ". " + players.get(i).getName());
+                System.out.println(i + 1 + ". " + players.get(i).getName()); ///????
             }
             System.out.print("Select a player (enter number): ");
             String input = scanner.nextLine().trim();
@@ -129,11 +133,6 @@ public class Game {
     public void liability() {
         //TODO; We have to Update Liability for Player
     }
-
-    public Game(List<Player> players) {
-        this.players = players;
-    }
-
 
     public void help() {
         System.out.println("Available commands:");
