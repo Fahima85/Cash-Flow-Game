@@ -10,24 +10,33 @@ import java.util.List;
 
 public class GameBoard {
     List<Tile> tileList;
-    Tile currentTile;
+    private Tile[][] board;
+    private Tile playerPosition;
     Tile startTile;
     Player owner;
     boolean finished = false;
 
-    public GameBoard() {
-        this.tileList = new ArrayList<>();
+    public GameBoard(int size) {
+        board = new Tile[size][size];
     }
 
-    public void fillTileList() {
+    public void fillTileList(int size) {
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "Description for Tile (" + row + ", " + col + ")");
+            }
+        }
+
+        
+
         // Create Tiles
-        Tile startTile = new Tile("Start", "The beginning of the Rat Race!");
+/*        Tile startTile = new Tile("Start", "The beginning of the Rat Race!");
         Tile assetTile = new Tile("Asset Tile", "You can gain an asset here.");
         Tile liabilityTile = new Tile("Liability Tile", "Watch out! You might take on a liability.");
         Tile incomeTile = new Tile("Income Tile", "Great! You earned some income.");
-        Tile expenseTile = new Tile("Expense Tile", "Oh no! You have to pay an expense.");
+        Tile expenseTile = new Tile("Expense Tile", "Oh no! You have to pay an expense.");*/
 
-        this.startTile = startTile;
+/*        this.startTile = startTile;
 
         // Connect Tiles
         startTile.setNeighbor("north", assetTile);
@@ -40,13 +49,13 @@ public class GameBoard {
         incomeTile.setNeighbor("north", startTile);
 
         startTile.setNeighbor("west", expenseTile);
-        expenseTile.setNeighbor("east", startTile);
+        expenseTile.setNeighbor("east", startTile);*/
 
-        // Place Items
+/*        // Place Items
         assetTile.setItem(new Asset("Real Estate", "Real Estate", 2000));
         liabilityTile.setItem(new Liability("Credit Card Debt", "Credit Card Debt", 3000));
         incomeTile.setItem(new Income("Salary Bonus", "Salary Bonus", 1500));
-        expenseTile.setItem(new Expense("Utility Bills", "Utility Bills", 2800));
+        expenseTile.setItem(new Expense("Utility Bills", "Utility Bills", 2800));*/
 
     }
 

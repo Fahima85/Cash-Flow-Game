@@ -20,8 +20,8 @@ public class Start {
             players.add(new Player(playerName));
         }
         // Create a GameBoard object and pass it to the Game class
-        GameBoard gameBoard = new GameBoard();
-        gameBoard.fillTileList(); // Initialize the tiles
+        GameBoard gameBoard = new GameBoard(20);
+        gameBoard.fillTileList(20); // Initialize the tiles
         // Pass GameBoard and players to the Game class
         Game game = new Game(gameBoard, players);
         game.startGame();// Start the game

@@ -30,6 +30,12 @@ public class Game {
     /**
      *
      */
+
+    public void startGame2() {
+        System.out.println("Starting game");
+    }
+
+
     public void startGame() {
         System.out.println("Starting game");
 
