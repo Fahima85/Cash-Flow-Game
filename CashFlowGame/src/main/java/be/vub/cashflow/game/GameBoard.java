@@ -27,7 +27,7 @@ public class GameBoard {
             }
         }
 
-        
+
 
         // Create Tiles
 /*        Tile startTile = new Tile("Start", "The beginning of the Rat Race!");
@@ -66,12 +66,12 @@ public class GameBoard {
     public Tile calculateCurrentTile(int move) {
         int tileIndex = move % tileList.size();
         Tile tile = tileList.get(tileIndex);
-        currentTile = tile;
+        playerPosition = tile;
         return tile;
     }
 
     public Tile getCurrentTile() {
-        return currentTile;
+        return playerPosition;
     }
 
     public Tile getStartTile() {
@@ -82,7 +82,7 @@ public class GameBoard {
      * @param currentTile
      */
     public void setCurrentTile(Tile currentTile) {
-        this.currentTile = currentTile;
+        this.playerPosition = currentTile;
     }
 
 }
