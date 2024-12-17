@@ -1,7 +1,9 @@
 package main.java.be.vub.cashflow.game;
 
 public enum TileType {
-    INVESTMENT,
+    ASSET,
     EXPENSE,
+    LIABILITY,
+    INCOME,
 
 }

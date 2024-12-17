@@ -76,8 +76,28 @@ public class Player {
 
     public void look() {
         System.out.println(name + " is at " + this.currentTile.getName() + ": " + this.currentTile.getDescription());
-        if (this.currentTile.getItem() != null) {
+        if (this.currentTile.hasItem()) {
             System.out.println("You see a " + this.currentTile.getItem().getName() + " here.");
+        } else {
+            System.out.println("No Item in this tile.");
+        }
+        // show connected neighbours
+        this.showNeighborsOfCurrentTile(this.currentTile);
+    }
+
+    private void showNeighborsOfCurrentTile(Tile tile) {
+        System.out.println("You can move in the following directions:");
+        if (tile.getNeighbor("north") != null) {
+            System.out.println("- North: " + tile.getNeighbor("north").getName());
+        }
+        if (tile.getNeighbor("south") != null) {
+            System.out.println("- South: " + tile.getNeighbor("south").getName());
+        }
+        if (tile.getNeighbor("east") != null) {
+            System.out.println("- East: " + tile.getNeighbor("east").getName());
+        }
+        if (tile.getNeighbor("west") != null) {
+            System.out.println("- West: " + tile.getNeighbor("west").getName());
         }
     }
 
