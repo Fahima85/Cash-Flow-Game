@@ -15,42 +15,44 @@ public class GameBoard {
     private Tile playerPosition;
     Player owner;
     boolean finished = false;
+    private int tileGridSize;
 
     public GameBoard(int size) {
         this.board = new Tile[size][size];
         this.tileList = new ArrayList<>();
+        this.tileGridSize = size;
     }
 
-    public void fillTileList(int size) {
+    public void fillTileList() {
 
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+        for (int row = 0; row < this.tileGridSize; row++) {
+            for (int col = 0; col < this.tileGridSize; col++) {
                 board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "Description for Tile (" + row + ", " + col + ")");
                 tileList.add(board[row][col]);
             }
         }
         // Connect tiles dynamically
-        this.connectTiles(size);
+        this.connectTiles();
 
         // Assign Items to the tiles
         this.assignItemsToTiles();
 
     }
 
-    private void connectTiles(int size) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+    private void connectTiles() {
+        for (int i = 0; i < this.tileGridSize; i++) {
+            for (int j = 0; j < this.tileGridSize; j++) {
                 Tile currentTile = this.board[i][j];
                 if (i > 0) {
                     currentTile.setNeighbor("north", this.board[i - 1][j]); // Connect north
                 }
-                if (i < size - 1) {
+                if (i < this.tileGridSize - 1) {
                     currentTile.setNeighbor("south", this.board[i + 1][j]); // Connect south
                 }
                 if (j > 0) {
                     currentTile.setNeighbor("west", this.board[i][j - 1]); // Connect west
                 }
-                if (j < size - 1) {
+                if (j < this.tileGridSize - 1) {
                     currentTile.setNeighbor("east", this.board[i][j + 1]); // Connect east
                 }
             }
