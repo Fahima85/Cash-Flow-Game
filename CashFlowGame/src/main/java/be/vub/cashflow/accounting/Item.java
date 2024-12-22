@@ -1,5 +1,7 @@
 package main.java.be.vub.cashflow.accounting;
 
+import main.java.be.vub.cashflow.game.Player;
+
 abstract public class Item {
     private String name;
     private String description;
@@ -23,5 +25,5 @@ abstract public class Item {
         return this.price;
     }
 
-    public abstract void use();
+    public abstract void use(Player player);
 }

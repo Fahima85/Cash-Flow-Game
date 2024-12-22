@@ -1,9 +1,8 @@
 package main.java.be.vub.cashflow.accounting;
 
+import main.java.be.vub.cashflow.game.Player;
+
 public class Income extends Item {
-    private String source;             // The source of the income (e.g., Salary, Investment)
-    private double amount;             // Amount of income
-    private IncomeFrequency frequency;
 
     public Income(String name, String description, double price) {
         super(name, description, price);
@@ -11,7 +10,8 @@ public class Income extends Item {
 
 
     @Override
-    public void use() {
-
+    public void use(Player player) {
+        System.out.println("Receiving income: " + this.getName() + " worth $" + this.getPrice());
+        player.setNetWorth(this.getPrice());
     }
 }

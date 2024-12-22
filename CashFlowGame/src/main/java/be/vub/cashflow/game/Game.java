@@ -10,9 +10,12 @@ import java.util.Scanner;
 //TODO; Grab something
 
 public class Game {
+
     private List<Player> players;    // List of players in the game
     private Player currentPlayer;
     private GameBoard gameBoard;
+
+    private static final int TARGET_NET_WORTH = 1000;
 
     /**
      * @param gameBoard
@@ -44,6 +47,11 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
+            if (this.isGameOver()) {
+                break;
+            }
+
             String command = scanner.nextLine().trim();
             System.out.println("Players:");
             for (int i = 0; i < players.size(); i++) {
@@ -105,7 +113,8 @@ public class Game {
      */
     private boolean isGameOver() {
         for (Player player : players) {
-            if (player.getCash() <= 0) {
+            if (player.getNetWorth() >= TARGET_NET_WORTH) {
+                System.out.println(player.getName() + " has achieved the target net worth and wins!");
                 return true;
             }
         }
@@ -115,7 +124,7 @@ public class Game {
     public void endGame() {
         System.out.println("Game Over!");
         for (Player player : players) {
-            System.out.println(player.getName() + " Final cash: " + player.getCash());
+            System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
         }
         // TODO; We have to determine which player is winner;
     }
@@ -126,7 +135,7 @@ public class Game {
         // TODO; We have to do conditional check to determine if the tile is income or expense type
         // TODO; Depend on the situation we have to update asset or liabilities
         // TODO;
-        currentPlayer.setIncome(currentTile.getValue());
+        currentPlayer.setNetWorth(currentTile.getValue());
     }
 
     public void buyAsset() {

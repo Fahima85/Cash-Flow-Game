@@ -1,5 +1,7 @@
 package main.java.be.vub.cashflow.accounting;
 
+import main.java.be.vub.cashflow.game.Player;
+
 public class Asset extends Item {
 
     /**
@@ -12,7 +14,8 @@ public class Asset extends Item {
     }
 
     @Override
-    public void use() {
-        System.out.println("Using the asset: " + this.getName());
+    public void use(Player player) {
+        System.out.println("Acquiring asset: " + this.getName() + " worth $" + this.getPrice());
+        player.setNetWorth(getPrice());
     }
 }

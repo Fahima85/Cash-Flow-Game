@@ -97,7 +97,7 @@ public class Tile {
     public void interact(Player player) {
         if (this.item != null) {
             System.out.println("You encountered a financial scenario: " + this.item.getName());
-            this.item.use();
+            this.item.use(player);
             player.take(item.getName());
             this.removeItem();
         } else {
