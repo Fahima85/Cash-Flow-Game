@@ -13,6 +13,8 @@ public class GameBoard {
     private List<Tile> tileList;
     private Tile[][] board;
     private Tile playerPosition;
+    private int currentRow;
+    private int currentCol;
     Player owner;
     boolean finished = false;
     private int tileGridSize;
@@ -36,24 +38,23 @@ public class GameBoard {
 
         // Assign Items to the tiles
         this.assignItemsToTiles();
-
     }
 
     private void connectTiles() {
-        for (int i = 0; i < this.tileGridSize; i++) {
-            for (int j = 0; j < this.tileGridSize; j++) {
-                Tile currentTile = this.board[i][j];
-                if (i > 0) {
-                    currentTile.setNeighbor("north", this.board[i - 1][j]); // Connect north
+        for (int row = 0; row < this.tileGridSize; row++) {
+            for (int column = 0; column < this.tileGridSize; column++) {
+                Tile currentTile = this.board[row][column];
+                if (row > 0) {
+                    currentTile.setNeighbor("north", this.board[row - 1][column]); // Connect north
                 }
-                if (i < this.tileGridSize - 1) {
-                    currentTile.setNeighbor("south", this.board[i + 1][j]); // Connect south
+                if (row < this.tileGridSize - 1) {
+                    currentTile.setNeighbor("south", this.board[row + 1][column]); // Connect south
                 }
-                if (j > 0) {
-                    currentTile.setNeighbor("west", this.board[i][j - 1]); // Connect west
+                if (column > 0) {
+                    currentTile.setNeighbor("west", this.board[row][column - 1]); // Connect west
                 }
-                if (j < this.tileGridSize - 1) {
-                    currentTile.setNeighbor("east", this.board[i][j + 1]); // Connect east
+                if (column < this.tileGridSize - 1) {
+                    currentTile.setNeighbor("east", this.board[row][column + 1]); // Connect east
                 }
             }
         }
@@ -91,14 +92,31 @@ public class GameBoard {
     }
 
     /**
-     * @param move
+     * @param direction
      * @return Tile
      */
-    public Tile calculateCurrentTile(int move) {
-        int tileIndex = move % tileList.size();
-        Tile tile = tileList.get(tileIndex);
-        playerPosition = tile;
-        return tile;
+
+    public Tile calculateCurrentTile(String direction) {
+        if (direction.equals("north") && this.currentRow + 1 < this.tileGridSize && this.currentRow + 1 >= 0) {
+            this.currentRow += 1;
+            return board[currentRow][currentCol];
+        }
+        if (direction.equals("south") && currentRow -1 < this.tileGridSize && currentRow - 1 >= 0) {
+            this.currentRow -= 1;
+            return board[currentRow][currentCol];
+        }
+        if (direction.equals("east") && currentCol + 1 < this.tileGridSize && currentCol + 1 >= 0) {
+            this.currentCol += 1;
+            return board[currentRow][currentCol];
+        }
+        if (direction.equals("west") && currentCol - 1 < this.tileGridSize && currentCol - 1 >= 0) {
+            this.currentCol -= 1;
+            return board[currentRow][currentCol];
+        }
+        else {
+            System.out.println("Invalid direction");
+            return null;
+        }
     }
 
     public Tile getCurrentTile() {

@@ -41,8 +41,6 @@ public class Game {
 
     public void startGame() {
         System.out.println("Starting game");
-
-        //???
         System.out.println("Welcome to the game! Type 'help' for commands.");
         Scanner scanner = new Scanner(System.in);
 
@@ -66,7 +64,7 @@ public class Game {
                 continue;
             }
 
-            Player currentPlayer = players.get(playerIndex);
+            Player currentPlayer = players.get(playerIndex);   //kolan mikhast current player moshakhas kone
 
             System.out.print(currentPlayer.getName() + " > ");
             String[] parts = command.split(" ", 2);
@@ -130,7 +128,7 @@ public class Game {
     }
 
     public void moveOnTiles(int tas) {
-        Tile currentTile = this.gameBoard.calculateCurrentTile(tas);
+        Tile currentTile = this.gameBoard.calculateCurrentTile("tas");
         currentPlayer.setCurrentTile(currentTile);
         // TODO; We have to do conditional check to determine if the tile is income or expense type
         // TODO; Depend on the situation we have to update asset or liabilities
