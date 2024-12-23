@@ -2,6 +2,9 @@ package main.java.be.vub.cashflow.accounting;
 
 import main.java.be.vub.cashflow.game.Player;
 
+/**
+ * Represents a Liability that decreases the player's net worth.
+ */
 public class Liability extends Item {
 
 

@@ -2,6 +2,9 @@ package main.java.be.vub.cashflow.accounting;
 
 import main.java.be.vub.cashflow.game.Player;
 
+/**
+ * Represents an Asset that increases the player's net worth.
+ */
 public class Asset extends Item {
 
     /**
