@@ -25,6 +25,10 @@ public class GameBoard {
         this.tileGridSize = size;
     }
 
+    /**
+     * Dynamically creates a grid of tiles and assigns neighbors and items.
+     * The start tile is defined as the top-left tile in the grid.
+     */
     public void fillTileList() {
 
         for (int row = 0; row < this.tileGridSize; row++) {
@@ -40,26 +44,32 @@ public class GameBoard {
         this.assignItemsToTiles();
     }
 
+    /**
+     * Connect Tile to another tile as Neighbor
+     */
     private void connectTiles() {
-        for (int row = 0; row < this.tileGridSize; row++) {
-            for (int column = 0; column < this.tileGridSize; column++) {
-                Tile currentTile = this.board[row][column];
-                if (row > 0) {
-                    currentTile.setNeighbor("north", this.board[row - 1][column]); // Connect north
+        for (int rowIteration = 0; rowIteration < this.tileGridSize; rowIteration++) {
+            for (int columnIteration = 0; columnIteration < this.tileGridSize; columnIteration++) {
+                Tile currentTile = this.board[rowIteration][columnIteration];
+                if (rowIteration > 0) {
+                    currentTile.setNeighbor("north", this.board[rowIteration - 1][columnIteration]); // Connect north
                 }
-                if (row < this.tileGridSize - 1) {
-                    currentTile.setNeighbor("south", this.board[row + 1][column]); // Connect south
+                if (rowIteration < this.tileGridSize - 1) {
+                    currentTile.setNeighbor("south", this.board[rowIteration + 1][columnIteration]); // Connect south
                 }
-                if (column > 0) {
-                    currentTile.setNeighbor("west", this.board[row][column - 1]); // Connect west
+                if (columnIteration > 0) {
+                    currentTile.setNeighbor("west", this.board[rowIteration][columnIteration - 1]); // Connect west
                 }
-                if (column < this.tileGridSize - 1) {
-                    currentTile.setNeighbor("east", this.board[row][column + 1]); // Connect east
+                if (columnIteration < this.tileGridSize - 1) {
+                    currentTile.setNeighbor("east", this.board[rowIteration][columnIteration + 1]); // Connect east
                 }
             }
         }
     }
 
+    /**
+     * Sets the item on Tile Randomly, some Tile without any item.
+     */
     private void assignItemsToTiles() {
 
         Random random = new Random();
@@ -101,7 +111,7 @@ public class GameBoard {
             this.currentRow += 1;
             return board[currentRow][currentCol];
         }
-        if (direction.equals("south") && currentRow -1 < this.tileGridSize && currentRow - 1 >= 0) {
+        if (direction.equals("south") && currentRow - 1 < this.tileGridSize && currentRow - 1 >= 0) {
             this.currentRow -= 1;
             return board[currentRow][currentCol];
         }
@@ -112,8 +122,7 @@ public class GameBoard {
         if (direction.equals("west") && currentCol - 1 < this.tileGridSize && currentCol - 1 >= 0) {
             this.currentCol -= 1;
             return board[currentRow][currentCol];
-        }
-        else {
+        } else {
             System.out.println("Invalid direction");
             return null;
         }

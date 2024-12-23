@@ -39,6 +39,9 @@ public class Game {
     }
 
 
+    /**
+     * Starts the game loop and manages player interactions.
+     */
     public void startGame() {
         System.out.println("Starting game");
         System.out.println("Welcome to the game! Type 'help' for commands.");
@@ -46,19 +49,24 @@ public class Game {
 
         while (true) {
 
+            // Check for a winner
             if (this.isGameOver()) {
                 break;
             }
 
             String command = scanner.nextLine().trim();
+            // Display player stats
             System.out.println("Players:");
             for (int i = 0; i < players.size(); i++) {
                 System.out.println(i + 1 + ". " + players.get(i).getName()); ///????
             }
+
+            // Prompt for player selection
             System.out.print("Select a player (enter number): ");
             String input = scanner.nextLine().trim();
             int playerIndex = Integer.parseInt(input) - 1;
 
+            // Validate player selection
             if (playerIndex < 0 || playerIndex >= players.size()) {
                 System.out.println("Invalid player selection.");
                 continue;
@@ -66,6 +74,7 @@ public class Game {
 
             Player currentPlayer = players.get(playerIndex);   //kolan mikhast current player moshakhas kone
 
+            // Prompt for command input
             System.out.print(currentPlayer.getName() + " > ");
             String[] parts = command.split(" ", 2);
             String action = parts[0].toLowerCase();
@@ -75,6 +84,7 @@ public class Game {
                 currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
             }
 
+            // Process commands
             switch (action) {
                 case "go":
                     if (argument != null) {
@@ -107,6 +117,8 @@ public class Game {
     }
 
     /**
+     * Gets the Winner player who achieved target net worth
+     *
      * @return boolean
      */
     private boolean isGameOver() {

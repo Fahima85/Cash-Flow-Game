@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main class that manages  Game.
+ * It handles game setup, player actions, and game logic.
+ */
 public class Start {
 
     private static final int GRID_SIZE = 20;
