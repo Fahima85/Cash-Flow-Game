@@ -72,14 +72,18 @@ public class Player implements IPlayable {
      *
      * @param direction the direction to move (e.g., "north", "south")
      */
-    public void move(String direction) {
-        Tile nextTile = this.currentTile.getNeighbor(direction);
-        if (nextTile != null) {
-            this.currentTile = nextTile;
-            System.out.println(name + " moved to " + this.currentTile.getName() + ".");
+    // TODO; We have to do conditional check to determine if the tile is income or expense type
+    // TODO; Depend on the situation we have to update asset or liabilities
+    public void move(String direction, GameBoard gameBoard) {
+        Tile newTile = gameBoard.calculateCurrentTile(direction);
+        if (newTile != null) {
+            System.out.println("Moved from " + (currentTile != null ? currentTile.getName() : "start") +
+                    " to " + newTile.getName());
+            this.setCurrentTile(newTile); // Update player's location
         } else {
-            System.out.println(name + " can't go that way!");
+            System.out.println("You can't move in that direction.");
         }
+        //currentPlayer.setNetWorth(currentTile.getValue());
     }
 
     /**

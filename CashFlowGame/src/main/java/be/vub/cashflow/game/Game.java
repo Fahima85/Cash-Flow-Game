@@ -1,6 +1,5 @@
 package main.java.be.vub.cashflow.game;
 
-import java.util.List;
 import java.util.Scanner;
 
 //TODO; Check to meet all of the requirements from Prof. Slides.
@@ -35,50 +34,53 @@ public class Game {
      */
     public void startGame() {
         System.out.println("Starting game");
-        System.out.println("Welcome to the game! Type 'help' for commands.");
+        System.out.println("Welcome, " + player.getName() + "! Type 'help' for commands.");
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        // Initialize player's starting position if not already set
+        if (!currentPlayer.hasCurrentTile()) {
+            currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
+        }
 
+        while (true) {
             // Check for a winner
             if (this.isGameOver()) {
+                endGame();
                 break;
             }
 
-            String command = scanner.nextLine().trim();
-            // Display player stats
-            System.out.println("Player:");
-            System.out.println(currentPlayer.getName());
+            // Display the current tile information
+            Tile currentTile = player.getCurrentTile();
+            System.out.println("You are currently at: " + currentTile.getName() + " (" + currentTile.getDescription() + ")");
+            if (currentTile.getItem() != null) {
+                System.out.println("You see: " + currentTile.getItem().getName());
+            }
+
 
             // Prompt for command input
-            System.out.print(currentPlayer.getName() + " > ");
+            System.out.print(player.getName() + " > ");
+            String command = scanner.nextLine().trim();
+
+            // Prompt for command input
+
             String[] parts = command.split(" ", 2);
             String action = parts[0].toLowerCase();
             String argument = parts.length > 1 ? parts[1] : null;
 
-            if (!currentPlayer.hasCurrentTile()) {
-                currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
-            }
 
             // Process commands
             switch (action) {
                 case "go":
-                    if (argument != null) {
-                        currentPlayer.move(argument);
-                    } else {
-                        System.out.println("Go where?");
-                    }
+                    goOnboard(argument);
                     break;
                 case "look":
                     currentPlayer.look();
                     break;
                 case "take":
-                    if (argument != null) currentPlayer.take(argument);
-                    else System.out.println("Take what?");
+                    takeItems(argument);
                     break;
                 case "drop":
-                    if (argument != null) currentPlayer.drop(argument);
-                    else System.out.println("Drop what?");
+                    dropItems(argument);
                     break;
                 case "inventory":
                     currentPlayer.inventory();
@@ -86,9 +88,36 @@ public class Game {
                 case "help":
                     this.help();
                     break;
+                case "exit":
+                    System.out.println("Exiting the game. Thanks for playing!");
+                    return; // Exit the game loop and method
                 default:
                     System.out.println("Unknown command. Type 'help' for a list of commands.");
             }
+        }
+    }
+
+    private void dropItems(String argument) {
+        if (argument != null) {
+            currentPlayer.drop(argument);
+        } else {
+            System.out.println("Specify what you want to drop.");
+        }
+    }
+
+    private void takeItems(String argument) {
+        if (argument != null) {
+            currentPlayer.take(argument);
+        } else {
+            System.out.println("Specify what you want to take.");
+        }
+    }
+
+    private void goOnboard(String argument) {
+        if (argument != null) {
+            currentPlayer.move(argument, gameBoard);
+        } else {
+            System.out.println("Go where?" + "(Please specify a direction : north, south, east, west )");
         }
     }
 
@@ -109,15 +138,6 @@ public class Game {
         System.out.println("Game Over!");
         System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
         // TODO; We have to determine which player is winner;
-    }
-
-    public void moveOnTiles(int tas) {
-        Tile currentTile = this.gameBoard.calculateCurrentTile("tas");
-        currentPlayer.setCurrentTile(currentTile);
-        // TODO; We have to do conditional check to determine if the tile is income or expense type
-        // TODO; Depend on the situation we have to update asset or liabilities
-        // TODO;
-        currentPlayer.setNetWorth(currentTile.getValue());
     }
 
     public void buyAsset() {

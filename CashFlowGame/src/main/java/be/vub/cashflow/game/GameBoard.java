@@ -35,7 +35,7 @@ public class GameBoard {
 
         for (int row = 0; row < this.tileGridSize; row++) {
             for (int col = 0; col < this.tileGridSize; col++) {
-                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "Description for Tile (" + row + ", " + col + ")");
+                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "It means: Row number = " + row + ", Column number = " + col );
                 tileList.add(board[row][col]);
             }
         }
