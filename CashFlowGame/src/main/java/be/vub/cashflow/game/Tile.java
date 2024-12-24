@@ -194,21 +194,4 @@ public class Tile {
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
-
-
-    /**
-     * Allows a player to interact with the item on the tile.
-     *
-     * @param player the player interacting with the tile
-     */
-    public void interact(Player player) {
-        if (this.item != null) {
-            System.out.println("You encountered a financial scenario: " + this.item.getName());
-            this.item.use(player);
-            player.take(item.getName());
-            this.removeItem();
-        } else {
-            System.out.println("Nothing significant happens here.");
-        }
-    }
 }

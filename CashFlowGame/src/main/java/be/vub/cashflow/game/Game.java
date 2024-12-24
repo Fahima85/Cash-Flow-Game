@@ -1,17 +1,10 @@
 package main.java.be.vub.cashflow.game;
 
-import java.util.List;
 import java.util.Scanner;
-
-//TODO; Check to meet all of the requirements from Prof. Slides.
-//TODO; Adding Object Oriented Features (Abstract,Interface,Inheritance,PolyMorphism,Dependency Injection)
-//TODO; Adding Features from Like (Generics,Collection,lambda) etc.
-//TODO; When a User Move from One Tile(Location) to Another we Have to Show Specific Message A----->B
-//TODO; Grab something
 
 public class Game {
 
-    private List<Player> players;    // List of players in the game
+    private Player player;    // List of players in the game
     private Player currentPlayer;
     private GameBoard gameBoard;
 
@@ -21,72 +14,80 @@ public class Game {
      * @param gameBoard
      * @param players
      */
-    public Game(GameBoard gameBoard, List<Player> players) {
+    public Game(GameBoard gameBoard, Player players) {
         this.gameBoard = gameBoard;
-        this.players = players;
+        this.player = players;
     }
 
-    public Game(List<Player> players) {
-        this.players = players;
+    public Game(Player players) {
+        this.player = players;
     }
-
-    /**
-     *
-     */
-
-    public void startGame2() {
-        System.out.println("Starting game");
-    }
-
 
     /**
      * Starts the game loop and manages player interactions.
      */
     public void startGame() {
         System.out.println("Starting game");
-        System.out.println("Welcome to the game! Type 'help' for commands.");
+        System.out.println("Welcome, " + player.getName() + "! Type 'help' for commands.");
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        // Initialize player's starting position if not already set
+        if (!currentPlayer.hasCurrentTile()) {
+            currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
+        }
 
+        while (true) {
             // Check for a winner
             if (this.isGameOver()) {
+                endGame();
                 break;
             }
 
-            String command = scanner.nextLine().trim();
-            // Display player stats
-            System.out.println("Players:");
-            for (int i = 0; i < players.size(); i++) {
-                System.out.println(i + 1 + ". " + players.get(i).getName()); ///????
+            // Display the current tile information
+            Tile currentTile = player.getCurrentTile();
+            System.out.println("You are currently at: " + currentTile.getName() + " (" + currentTile.getDescription() + ")");
+            if (currentTile.getItem() != null) {
+                System.out.println("You see: " + currentTile.getItem().getName());
             }
 
-            // Prompt for player selection
-            System.out.print("Select a player (enter number): ");
-            String input = scanner.nextLine().trim();
-            int playerIndex = Integer.parseInt(input) - 1;
-
-            // Validate player selection
-            if (playerIndex < 0 || playerIndex >= players.size()) {
-                System.out.println("Invalid player selection.");
-                continue;
-            }
-
-            Player currentPlayer = players.get(playerIndex);   //kolan mikhast current player moshakhas kone
 
             // Prompt for command input
-            System.out.print(currentPlayer.getName() + " > ");
+            System.out.print(player.getName() + " > ");
+            String command = scanner.nextLine().trim();
+
+            // Prompt for command input
+
             String[] parts = command.split(" ", 2);
             String action = parts[0].toLowerCase();
             String argument = parts.length > 1 ? parts[1] : null;
 
-            if (!currentPlayer.hasCurrentTile()) {
-                currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
-            }
-
             // Process commands with Open Closed Principle eliminate [if else and switch case]
             ICommand commandToExecute = CommandPool.getCommand(action);
             commandToExecute.execute(currentPlayer, argument, this);
+        }
+    }
+
+    private void dropItems(String argument) {
+        if (argument != null) {
+            currentPlayer.drop(argument);
+        } else {
+            System.out.println("Specify what you want to drop.");
+        }
+    }
+
+    private void takeItems(String argument) {
+        if (argument != null) {
+            currentPlayer.take(argument);
+        } else {
+            System.out.println("Specify what you want to take.");
+        }
+    }
+
+    private void goOnboard(String argument) {
+        if (argument != null) {
+            currentPlayer.move(argument, gameBoard);
+        } else {
+            System.out.println("Go where?" + "(Please specify a direction : north, south, east, west )");
         }
     }
 
@@ -96,30 +97,17 @@ public class Game {
      * @return boolean
      */
     private boolean isGameOver() {
-        for (Player player : players) {
-            if (player.getNetWorth() >= TARGET_NET_WORTH) {
-                System.out.println(player.getName() + " has achieved the target net worth and wins!");
-                return true;
-            }
+        if (player.getNetWorth() >= TARGET_NET_WORTH) {
+            System.out.println(player.getName() + " has achieved the target net worth and wins!");
+            return true;
         }
         return false;
     }
 
     public void endGame() {
         System.out.println("Game Over!");
-        for (Player player : players) {
-            System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
-        }
+        System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
         // TODO; We have to determine which player is winner;
-    }
-
-    public void moveOnTiles(int tas) {
-        Tile currentTile = this.gameBoard.calculateCurrentTile("tas");
-        currentPlayer.setCurrentTile(currentTile);
-        // TODO; We have to do conditional check to determine if the tile is income or expense type
-        // TODO; Depend on the situation we have to update asset or liabilities
-        // TODO;
-        currentPlayer.setNetWorth(currentTile.getValue());
     }
 
     public void buyAsset() {

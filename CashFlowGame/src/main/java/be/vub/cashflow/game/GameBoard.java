@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Random;
 
 public class GameBoard {
+    private static final int MAX_PRICE = 550;
+    private static final int MIN_PRICE = 50;
     private List<Tile> tileList;
     private Tile[][] board;
     private Tile playerPosition;
     private int currentRow;
-    private int currentCol;
+    private int currentColomn;
     Player owner;
     boolean finished = false;
     private int tileGridSize;
@@ -29,11 +31,11 @@ public class GameBoard {
      * Dynamically creates a grid of tiles and assigns neighbors and items.
      * The start tile is defined as the top-left tile in the grid.
      */
-    public void fillTileList() {
+    public void createTiles() {
 
         for (int row = 0; row < this.tileGridSize; row++) {
             for (int col = 0; col < this.tileGridSize; col++) {
-                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "Description for Tile (" + row + ", " + col + ")");
+                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "It means: Row number = " + row + ", Column number = " + col );
                 tileList.add(board[row][col]);
             }
         }
@@ -82,7 +84,7 @@ public class GameBoard {
 
             if (random.nextBoolean()) { // Randomly decide if this tile gets an item
                 TileType tileType = tileTypes[random.nextInt(tileTypes.length)];
-                int price = random.nextInt(500) + 50; // Random price between 50 and 550
+                int price = random.nextInt(MAX_PRICE - MIN_PRICE + 1) + MIN_PRICE; // Random price between 50 and 550
                 switch (tileType) {
                     case ASSET:
                         tile.setItem(new Asset("Real Estate", "Real State", price));
@@ -107,40 +109,59 @@ public class GameBoard {
      */
 
     public Tile calculateCurrentTile(String direction) {
-        if (direction.equals("north") && this.currentRow + 1 < this.tileGridSize && this.currentRow + 1 >= 0) {
-            this.currentRow += 1;
-            return board[currentRow][currentCol];
+        int newRow = currentRow;
+        int newCol = currentColomn;
+        switch (direction.toLowerCase()) {
+            case "north": newRow--; break;
+            case "south": newRow++; break;
+            case "east": newCol++; break;
+            case "west": newCol--; break;
+            default:
+                System.out.println("Invalid direction");
+                return null;
         }
-        if (direction.equals("south") && currentRow - 1 < this.tileGridSize && currentRow - 1 >= 0) {
-            this.currentRow -= 1;
-            return board[currentRow][currentCol];
+        if (newRow >= 0 && newRow < tileGridSize && newCol >= 0 && newCol < tileGridSize) {
+            currentRow = newRow;
+            currentColomn = newCol;
+            return board[currentRow][currentColomn];
         }
-        if (direction.equals("east") && currentCol + 1 < this.tileGridSize && currentCol + 1 >= 0) {
-            this.currentCol += 1;
-            return board[currentRow][currentCol];
-        }
-        if (direction.equals("west") && currentCol - 1 < this.tileGridSize && currentCol - 1 >= 0) {
-            this.currentCol -= 1;
-            return board[currentRow][currentCol];
-        } else {
-            System.out.println("Invalid direction");
-            return null;
-        }
-    }
-
-    public Tile getCurrentTile() {
-        return playerPosition;
+        System.out.println("Movement out of bounds");
+        return null;
     }
 
     public Tile getStartTile() {
         return this.board[0][0];
     }
 
-    /**
-     * @param currentTile
-     */
-    public void setCurrentTile(Tile currentTile) {
-        this.playerPosition = currentTile;
+    public void visualizeBoard() {
+        StringBuilder boardVisualization = new StringBuilder();
+
+        for (int row = 0; row < tileGridSize; row++) {
+            for (int col = 0; col < tileGridSize; col++) {
+                Tile tile = board[row][col];
+
+                if (tile == board[currentRow][currentColomn]) {
+                    // Player's position: include the item if present
+                    if (tile.getItem() != null) {
+                        String itemName = tile.getItem().getName().substring(0, 1); // Assuming each item has a 'getName()' method
+                        boardVisualization.append("[P:").append(itemName).append("]");
+                    } else {
+                        boardVisualization.append("[P]");
+                    }
+                } else if (tile.getItem() != null) {
+                    // Other tiles with items: show the first letter of the item type
+                    String itemType = tile.getItem().getName().substring(0, 1); // E.g., "A" for Asset
+                    boardVisualization.append("[").append(itemType).append("]");
+                } else {
+                    // Empty tiles
+                    boardVisualization.append("[ ]");
+                }
+            }
+            boardVisualization.append("\n"); // Move to the next row
+        }
+
+        System.out.println(boardVisualization.toString());
     }
+
 
 }
