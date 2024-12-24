@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represents a player in the game who can move, interact, and manage inventory.
  */
-public class Player implements IPlayable {
+public class Player {
 
     private static int counter = 0;
     private int palyerId;
