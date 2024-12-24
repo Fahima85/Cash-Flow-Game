@@ -84,35 +84,9 @@ public class Game {
                 currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
             }
 
-            // Process commands
-            switch (action) {
-                case "go":
-                    if (argument != null) {
-                        currentPlayer.move(argument);
-                    } else {
-                        System.out.println("Go where?");
-                    }
-                    break;
-                case "look":
-                    currentPlayer.look();
-                    break;
-                case "take":
-                    if (argument != null) currentPlayer.take(argument);
-                    else System.out.println("Take what?");
-                    break;
-                case "drop":
-                    if (argument != null) currentPlayer.drop(argument);
-                    else System.out.println("Drop what?");
-                    break;
-                case "inventory":
-                    currentPlayer.inventory();
-                    break;
-                case "help":
-                    this.help();
-                    break;
-                default:
-                    System.out.println("Unknown command. Type 'help' for a list of commands.");
-            }
+            // Process commands with Open Closed Principle eliminate [if else and switch case]
+            ICommand commandToExecute = CommandPool.getCommand(action);
+            commandToExecute.execute(currentPlayer, argument, this);
         }
     }
 
