@@ -76,7 +76,6 @@ public class Player {
     // TODO; Depend on the situation we have to update asset or liabilities
     public void move(String direction, GameBoard gameBoard) {
         Tile newTile = gameBoard.calculateCurrentTile(direction);
-//        Tile newTile = this.currentTile.getNeighbor(direction);
         if (newTile != null) {
             System.out.println("Moved from " + (currentTile != null ? currentTile.getName() : "start") +
                     " to " + newTile.getName());
@@ -84,7 +83,6 @@ public class Player {
         } else {
             System.out.println("You can't move in that direction.");
         }
-        //currentPlayer.setNetWorth(currentTile.getValue());
     }
 
     /**

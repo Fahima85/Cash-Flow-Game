@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public class Game {
 
-    private Player player;    // List of players in the game
+    private Player player;    // player instance
     private Player currentPlayer;
     private GameBoard gameBoard;
 
     private static final int TARGET_NET_WORTH = 1000;
 
     /**
-     * @param gameBoard
-     * @param player
+     * @param gameBoard the game board object
+     * @param player    the player object
      */
     public Game(GameBoard gameBoard, Player player) {
         this.gameBoard = gameBoard;
