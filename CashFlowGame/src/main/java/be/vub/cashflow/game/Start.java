@@ -15,22 +15,18 @@ public class Start {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Numbers Of Players: ");
-
-        List<Player> players = new ArrayList<>();
         int numberOfPlayers = scanner.nextInt();
         scanner.nextLine();  // Clear the newline left by nextInt()
 
-        for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.println("Enter Name Of Player: ");
-            String playerName = scanner.nextLine();   // Now this correctly reads the name
-            players.add(new Player(playerName));
-        }
+        System.out.println("Enter Name Of Player: ");
+        String playerName = scanner.nextLine();   // Now this correctly reads the name
+        Player player = new Player(playerName);
+
         // Create a GameBoard object and pass it to the Game class
         GameBoard gameBoard = new GameBoard(GRID_SIZE);
-        gameBoard.fillTileList(); // Initialize the tiles
+        gameBoard.createTiles(); // Initialize the tiles
         // Pass GameBoard and players to the Game class
-        Game game = new Game(gameBoard, players);
+        Game game = new Game(gameBoard, player);
         game.startGame();// Start the game
     }
 }

@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Game {
 
-    private List<Player> players;    // List of players in the game
+    private Player player;    // List of players in the game
     private Player currentPlayer;
     private GameBoard gameBoard;
 
@@ -21,23 +21,14 @@ public class Game {
      * @param gameBoard
      * @param players
      */
-    public Game(GameBoard gameBoard, List<Player> players) {
+    public Game(GameBoard gameBoard, Player players) {
         this.gameBoard = gameBoard;
-        this.players = players;
+        this.player = players;
     }
 
-    public Game(List<Player> players) {
-        this.players = players;
+    public Game(Player players) {
+        this.player = players;
     }
-
-    /**
-     *
-     */
-
-    public void startGame2() {
-        System.out.println("Starting game");
-    }
-
 
     /**
      * Starts the game loop and manages player interactions.
@@ -56,23 +47,8 @@ public class Game {
 
             String command = scanner.nextLine().trim();
             // Display player stats
-            System.out.println("Players:");
-            for (int i = 0; i < players.size(); i++) {
-                System.out.println(i + 1 + ". " + players.get(i).getName()); ///????
-            }
-
-            // Prompt for player selection
-            System.out.print("Select a player (enter number): ");
-            String input = scanner.nextLine().trim();
-            int playerIndex = Integer.parseInt(input) - 1;
-
-            // Validate player selection
-            if (playerIndex < 0 || playerIndex >= players.size()) {
-                System.out.println("Invalid player selection.");
-                continue;
-            }
-
-            Player currentPlayer = players.get(playerIndex);   //kolan mikhast current player moshakhas kone
+            System.out.println("Player:");
+            System.out.println(currentPlayer.getName());
 
             // Prompt for command input
             System.out.print(currentPlayer.getName() + " > ");
@@ -122,20 +98,16 @@ public class Game {
      * @return boolean
      */
     private boolean isGameOver() {
-        for (Player player : players) {
             if (player.getNetWorth() >= TARGET_NET_WORTH) {
                 System.out.println(player.getName() + " has achieved the target net worth and wins!");
                 return true;
             }
-        }
         return false;
     }
 
     public void endGame() {
         System.out.println("Game Over!");
-        for (Player player : players) {
-            System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
-        }
+        System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
         // TODO; We have to determine which player is winner;
     }
 
