@@ -41,20 +41,16 @@ public class Game {
             if (this.isGameOver()) {
                 break;
             }
-
             // Display the current tile information
             Tile currentTile = player.getCurrentTile();
-
             // Prompt for command input
             System.out.print(player.getName() + " > ");
             String command = scanner.nextLine().trim();
 
             // Prompt for command input
-
             String[] parts = command.split(" ", 2);
             String action = parts[0].toLowerCase();
             String argument = parts.length > 1 ? parts[1] : null;
-
             // Process commands with Open Closed Principle eliminate [if else and switch case]
             ICommand commandToExecute = CommandPool.getCommand(action);
             commandToExecute.execute(player, argument, this, this.gameBoard);
