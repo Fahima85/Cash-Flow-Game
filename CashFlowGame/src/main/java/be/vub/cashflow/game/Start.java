@@ -1,7 +1,5 @@
 package main.java.be.vub.cashflow.game;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,7 +14,7 @@ public class Start {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Name Of Player: ");
-        String playerName = scanner.nextLine();   // Now this correctly reads the name
+        String playerName = scanner.nextLine();   // reads the name of player
         Player player = new Player(playerName);
 
         // Create a GameBoard object and pass it to the Game class
