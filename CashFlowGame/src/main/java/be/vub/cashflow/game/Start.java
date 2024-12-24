@@ -15,8 +15,8 @@ public class Start {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        int numberOfPlayers = scanner.nextInt();
-        scanner.nextLine();  // Clear the newline left by nextInt()
+        //int numberOfPlayers = scanner.nextInt();
+        //scanner.nextLine();  // Clear the newline left by nextInt()
 
         System.out.println("Enter Name Of Player: ");
         String playerName = scanner.nextLine();   // Now this correctly reads the name

@@ -12,15 +12,15 @@ public class Game {
 
     /**
      * @param gameBoard
-     * @param players
+     * @param player
      */
-    public Game(GameBoard gameBoard, Player players) {
+    public Game(GameBoard gameBoard, Player player) {
         this.gameBoard = gameBoard;
-        this.player = players;
+        this.player = player;
     }
 
-    public Game(Player players) {
-        this.player = players;
+    public Game(Player player) {
+        this.player = player;
     }
 
     /**
@@ -32,24 +32,18 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         // Initialize player's starting position if not already set
-        if (!currentPlayer.hasCurrentTile()) {
-            currentPlayer.setCurrentTile(this.gameBoard.getStartTile());
+        if (!player.hasCurrentTile()) {
+            player.setCurrentTile(this.gameBoard.getStartTile());
         }
 
         while (true) {
             // Check for a winner
             if (this.isGameOver()) {
-                endGame();
                 break;
             }
 
             // Display the current tile information
             Tile currentTile = player.getCurrentTile();
-            System.out.println("You are currently at: " + currentTile.getName() + " (" + currentTile.getDescription() + ")");
-            if (currentTile.getItem() != null) {
-                System.out.println("You see: " + currentTile.getItem().getName());
-            }
-
 
             // Prompt for command input
             System.out.print(player.getName() + " > ");
@@ -63,31 +57,7 @@ public class Game {
 
             // Process commands with Open Closed Principle eliminate [if else and switch case]
             ICommand commandToExecute = CommandPool.getCommand(action);
-            commandToExecute.execute(currentPlayer, argument, this);
-        }
-    }
-
-    private void dropItems(String argument) {
-        if (argument != null) {
-            currentPlayer.drop(argument);
-        } else {
-            System.out.println("Specify what you want to drop.");
-        }
-    }
-
-    private void takeItems(String argument) {
-        if (argument != null) {
-            currentPlayer.take(argument);
-        } else {
-            System.out.println("Specify what you want to take.");
-        }
-    }
-
-    private void goOnboard(String argument) {
-        if (argument != null) {
-            currentPlayer.move(argument, gameBoard);
-        } else {
-            System.out.println("Go where?" + "(Please specify a direction : north, south, east, west )");
+            commandToExecute.execute(player, argument, this, this.gameBoard);
         }
     }
 
@@ -102,23 +72,6 @@ public class Game {
             return true;
         }
         return false;
-    }
-
-    public void endGame() {
-        System.out.println("Game Over!");
-        System.out.println(player.getName() + " Final cash: " + player.getNetWorth());
-        // TODO; We have to determine which player is winner;
-    }
-
-    public void buyAsset() {
-        //TODO; We have to withdraw cash from player balance and deposit to the owner player balance;
-        //TODO; Transaction
-        //TODO; If an asset is occupied by one player , it can't buy several times;
-        //TODO; Before buying any tile we have to call hasOwner method from Tile class
-    }
-
-    public void liability() {
-        //TODO; We have to Update Liability for Player
     }
 
     public void help() {

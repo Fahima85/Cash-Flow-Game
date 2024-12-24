@@ -12,7 +12,7 @@ public class TakeCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, String action, Game game) {
+    public void execute(Player player, String action, Game game, GameBoard gameBoard) {
         if (action != null) {
             player.take(action);
         } else {

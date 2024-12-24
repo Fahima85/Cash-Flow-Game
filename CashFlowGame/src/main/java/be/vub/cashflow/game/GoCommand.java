@@ -12,9 +12,9 @@ public class GoCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, String action, Game game) {
+    public void execute(Player player, String action, Game game, GameBoard gameBoard) {
         if (action != null) {
-            player.move(action);
+            player.move(action, gameBoard);
         } else {
             System.out.println("Go where?");
         }

@@ -12,7 +12,7 @@ public class HelpCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, String action, Game game) {
+    public void execute(Player player, String action, Game game, GameBoard gameBoard) {
         game.help();
     }
 }

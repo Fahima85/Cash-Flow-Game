@@ -12,7 +12,7 @@ class LookCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, String argument, Game game) {
+    public void execute(Player player, String argument, Game game, GameBoard gameBoard) {
         player.look();
     }
 }

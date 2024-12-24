@@ -12,7 +12,7 @@ public class UnknownCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, String action, Game game) {
+    public void execute(Player player, String action, Game game, GameBoard gameBoard) {
         System.out.println("Unknown command. Type 'help' for a list of commands.");
     }
 }

@@ -76,6 +76,7 @@ public class Player implements IPlayable {
     // TODO; Depend on the situation we have to update asset or liabilities
     public void move(String direction, GameBoard gameBoard) {
         Tile newTile = gameBoard.calculateCurrentTile(direction);
+//        Tile newTile = this.currentTile.getNeighbor(direction);
         if (newTile != null) {
             System.out.println("Moved from " + (currentTile != null ? currentTile.getName() : "start") +
                     " to " + newTile.getName());

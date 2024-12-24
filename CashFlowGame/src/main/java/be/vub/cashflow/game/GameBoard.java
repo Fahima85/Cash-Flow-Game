@@ -35,7 +35,7 @@ public class GameBoard {
 
         for (int row = 0; row < this.tileGridSize; row++) {
             for (int col = 0; col < this.tileGridSize; col++) {
-                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "It means: Row number = " + row + ", Column number = " + col );
+                board[row][col] = new Tile("Tile (" + row + ", " + col + ")", "It means: Row number = " + row + ", Column number = " + col);
                 tileList.add(board[row][col]);
             }
         }
@@ -112,10 +112,18 @@ public class GameBoard {
         int newRow = currentRow;
         int newCol = currentColomn;
         switch (direction.toLowerCase()) {
-            case "north": newRow--; break;
-            case "south": newRow++; break;
-            case "east": newCol++; break;
-            case "west": newCol--; break;
+            case "north":
+                newRow--;
+                break;
+            case "south":
+                newRow++;
+                break;
+            case "east":
+                newCol++;
+                break;
+            case "west":
+                newCol--;
+                break;
             default:
                 System.out.println("Invalid direction");
                 return null;
