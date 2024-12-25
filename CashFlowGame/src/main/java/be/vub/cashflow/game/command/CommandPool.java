@@ -1,4 +1,4 @@
-package main.java.be.vub.cashflow.game;
+package main.java.be.vub.cashflow.game.command;
 
 import java.util.HashMap;
 import java.util.Map;

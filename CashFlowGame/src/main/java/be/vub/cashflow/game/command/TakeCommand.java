@@ -1,4 +1,8 @@
-package main.java.be.vub.cashflow.game;
+package main.java.be.vub.cashflow.game.command;
+
+import main.java.be.vub.cashflow.game.Game;
+import main.java.be.vub.cashflow.game.GameBoard;
+import main.java.be.vub.cashflow.game.Player;
 
 public class TakeCommand implements ICommand {
     @Override

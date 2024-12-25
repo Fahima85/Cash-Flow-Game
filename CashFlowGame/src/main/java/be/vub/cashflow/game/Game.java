@@ -1,5 +1,8 @@
 package main.java.be.vub.cashflow.game;
 
+import main.java.be.vub.cashflow.game.command.CommandPool;
+import main.java.be.vub.cashflow.game.command.ICommand;
+
 import java.util.Scanner;
 
 public class Game {
