@@ -1,26 +1,22 @@
-package main.java.be.vub.cashflow.game.command;
+package main.java.be.vub.cashflow.game.commands;
 
 import main.java.be.vub.cashflow.game.Game;
 import main.java.be.vub.cashflow.game.GameBoard;
 import main.java.be.vub.cashflow.game.Player;
 
-public class DropCommand implements ICommand {
+public class UnknownCommand implements ICommand {
     @Override
     public String getDescription() {
-        return "Player can drop an item on Tile";
+        return "Unknown command";
     }
 
     @Override
     public String getName() {
-        return "drop";
+        return "";
     }
 
     @Override
     public void execute(Player player, String action, Game game, GameBoard gameBoard) {
-        if (action != null) {
-            player.drop(action);
-        } else {
-            System.out.println("Drop what?");
-        }
+        System.out.println("Unknown command. Type 'help' for a list of commands.");
     }
 }

@@ -1,4 +1,4 @@
-package main.java.be.vub.cashflow.game.command;
+package main.java.be.vub.cashflow.game.commands;
 
 import main.java.be.vub.cashflow.game.Game;
 import main.java.be.vub.cashflow.game.GameBoard;
