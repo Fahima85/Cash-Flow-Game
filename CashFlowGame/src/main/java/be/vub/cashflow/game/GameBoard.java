@@ -4,7 +4,6 @@ import main.java.be.vub.cashflow.accounting.Asset;
 import main.java.be.vub.cashflow.accounting.Expense;
 import main.java.be.vub.cashflow.accounting.Income;
 import main.java.be.vub.cashflow.accounting.Liability;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,11 +13,8 @@ public class GameBoard {
     private static final int MIN_PRICE = 50;
     private List<Tile> tileList;
     private Tile[][] board;
-    private Tile playerPosition;
     private int currentRow;
     private int currentColomn;
-    Player owner;
-    boolean finished = false;
     private int tileGridSize;
 
     public GameBoard(int size) {

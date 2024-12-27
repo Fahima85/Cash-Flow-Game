@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import main.java.be.vub.cashflow.game.Game;
 import main.java.be.vub.cashflow.game.GameBoard;

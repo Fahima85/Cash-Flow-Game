@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Game {
 
     private Player player;    // player instance
-    private Player currentPlayer;
     private GameBoard gameBoard;
 
     private static final int TARGET_NET_WORTH = 1000;

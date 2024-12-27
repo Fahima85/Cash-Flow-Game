@@ -144,15 +144,14 @@ public class Player {
     public void drop(String itemName) {
         for (int i = 0; i < inventory.size(); i++) {
             Item item = inventory.get(i);
-            if (item.getName().equalsIgnoreCase(itemName)) {
+            if (inventory.get(i).getName().equalsIgnoreCase(itemName)) {
                 if (this.currentTile.getItem() == null) {
-                    inventory.remove(i);
-                    this.currentTile.setItem(item); // Tile is empty, place the item
+                    currentTile.setItem(inventory.remove(i)); // Tile is empty, remove item from inventory and add it to the tile
                     System.out.println("You dropped the " + itemName + ".");
-                    if (item instanceof Asset || item instanceof Income) {
-                        this.setNetWorth(-item.getPrice()); // Subtract amount from net worth
+                    if (currentTile.getItem() instanceof Asset || currentTile.getItem() instanceof Income) {
+                        this.setNetWorth(-currentTile.getItem().getPrice()); // Subtract amount from net worth
                     } else {
-                        this.setNetWorth(item.getPrice()); // Add amount to net worth
+                        this.setNetWorth(currentTile.getItem().getPrice()); // Add amount to net worth
                     }
                     System.out.println(this.getName() + "'s net worth is now $" + this.getNetWorth());
                 } else {
