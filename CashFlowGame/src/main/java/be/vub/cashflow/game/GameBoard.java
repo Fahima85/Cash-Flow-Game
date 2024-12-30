@@ -72,18 +72,20 @@ public class GameBoard {
 
         Random random = new Random();
         TileType[] tileTypes = TileType.values();
+        Character richDady = new Character("RichDady");
+        richDady.setMessage("It is a good Deal, don't lose it!");
         for (Tile tile : this.tileList) {
 
             if (tile == this.getStartTile()) {
                 continue;
             }
-
             if (random.nextBoolean()) { // Randomly decide if this tile gets an item
                 TileType tileType = tileTypes[random.nextInt(tileTypes.length)];
                 int price = random.nextInt(MAX_PRICE - MIN_PRICE + 1) + MIN_PRICE; // Random price between 50 and 550
                 switch (tileType) {
                     case ASSET:
                         tile.setItem(new Asset("Real Estate", "Real State", price));
+                        tile.setCharacter(richDady);
                         break;
                     case LIABILITY:
                         tile.setItem(new Liability("Credit Card Debt", "Credit Card Debt", price));

@@ -11,17 +11,30 @@ public class Start {
     private static final int GRID_SIZE = 20;
 
     public static void main(String[] args) {
-
+        System.out.println("Welcome to the CashFlow Game!");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Name Of Player: ");
-        String playerName = scanner.nextLine();   // reads the name of player
-        Player player = new Player(playerName);
 
-        // Create a GameBoard object and pass it to the Game class
-        GameBoard gameBoard = new GameBoard(GRID_SIZE);
-        gameBoard.createTiles(); // Initialize the tiles
-        // Pass GameBoard and players to the Game class
-        Game game = new Game(gameBoard, player);
-        game.startGame();// Start the game
+        try {
+            System.out.println("Enter Name Of Player: ");
+            String playerName = scanner.nextLine();   // reads the name of player
+            while (playerName.isEmpty()) {
+                System.out.print("Name cannot be empty. Please enter a valid name: ");
+                playerName = scanner.nextLine();
+            }
+            Player player = new Player(playerName);
+
+            // Create a GameBoard object and pass it to the Game class
+            GameBoard gameBoard = new GameBoard(GRID_SIZE);
+            gameBoard.createTiles(); // Initialize the tiles
+            // Pass GameBoard and players to the Game class
+            Game game = new Game(gameBoard, player);
+            game.startGame();// Start the game
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        } finally {
+            // Ensure the Scanner is closed
+            scanner.close();
+        }
+        scanner.close();
     }
 }

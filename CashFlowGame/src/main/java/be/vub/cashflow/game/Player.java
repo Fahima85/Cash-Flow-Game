@@ -95,6 +95,10 @@ public class Player {
         } else {
             System.out.println("No Item in this tile.");
         }
+        if (this.currentTile.hasCharacter()) {
+            System.out.println("You see the" + this.currentTile.getCharacter().getName() + " here.");
+            System.out.println(this.currentTile.getCharacter().getMessage());
+        }
         // show connected neighbours
         this.showNeighborsOfCurrentTile(this.currentTile);
     }

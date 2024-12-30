@@ -17,6 +17,7 @@ public class Tile {
     private Player owner;
     private Map<String, Tile> neighbors;
     private Item item;
+    private Character character;
 
     /**
      * Constructs a Tile with a name and description.
@@ -121,6 +122,10 @@ public class Tile {
         return this.item != null;
     }
 
+    public boolean hasCharacter() {
+        return this.character != null;
+    }
+
     /**
      * Gets the item on the tile.
      *
@@ -193,5 +198,13 @@ public class Tile {
      */
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 }
