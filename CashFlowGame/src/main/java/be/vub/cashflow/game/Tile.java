@@ -1,6 +1,7 @@
 package main.java.be.vub.cashflow.game;
 
 import main.java.be.vub.cashflow.accounting.Item;
+import main.java.be.vub.cashflow.game.enums.TileType;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,6 +4,8 @@ import main.java.be.vub.cashflow.accounting.Asset;
 import main.java.be.vub.cashflow.accounting.Expense;
 import main.java.be.vub.cashflow.accounting.Income;
 import main.java.be.vub.cashflow.accounting.Liability;
+import main.java.be.vub.cashflow.game.enums.TileType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
